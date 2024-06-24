@@ -16,4 +16,8 @@ class User extends Authenticatable
         'email_verified_at',
         'profile_photo'
     ];
+
+    protected $hidden = [
+        'remember_token',
+    ];
 }
