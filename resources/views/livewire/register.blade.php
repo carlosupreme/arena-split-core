@@ -13,24 +13,24 @@
                 </h1>
                 <div class="space-y-4 md:space-y-6">
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Nombre
                         </label>
-                        <x-input wire:model="name" name="name" placeholder="Tu nombre"/>
+                        <x-input wire:model="name" id="name" placeholder="Tu nombre"/>
                         <x-input-error for="name"/>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Correo electrónico
                         </label>
-                        <x-input type="email" name="email" wire:model="email" placeholder="correo@gmail.com"/>
+                        <x-input type="email" id="email" wire:model="email" placeholder="correo@gmail.com"/>
                         <x-input-error for="email"/>
                     </div>
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Contraseña
                         </label>
-                        <x-input type="password" name="password" wire:model="password" placeholder="••••••••"/>
+                        <x-input type="password" id="password" wire:model="password" placeholder="••••••••"/>
                         <x-input-error for="password"/>
                     </div>
                     <x-button wire:click="register">Crear cuenta</x-button>
