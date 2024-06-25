@@ -1,14 +1,24 @@
 <?php
 
+use App\Helpers\Logout;
 use App\Livewire\Login;
 use App\Livewire\Register;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return Auth::user();
+        return view('welcome', [
+            'user' => Auth::user()
+        ]);
     })->name('home');
+
+    Route::get('/logout', function () {
+        call_user_func(new Logout);
+        return redirect()->route('login');
+    })->name('logout');
+
 });
 
 Route::middleware('guest')->group(function () {
