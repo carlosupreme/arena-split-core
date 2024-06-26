@@ -11,9 +11,8 @@
                 <h1 class="text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Iniciar Sesion
                 </h1>
-                <x-input-error for="validacion"/>
-                <div class="space-y-4 md:space-y-6">
 
+                <div class="space-y-4 md:space-y-6">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Correo electrónico
@@ -28,11 +27,16 @@
                         <x-input type="password" id="password" wire:model="password" placeholder="••••••••"/>
                         <x-input-error for="password"/>
                     </div>
+                    <div class="flex items-center me-4">
+                        <x-checkbox wire:model="remember" id="remember"/>
+                        <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recuerdame</label>
+                    </div>
                     <x-button wire:click="login">Entrar</x-button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                         No tienes una cuenta?
-                        <a href="{{route('register')}}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                            Crea una
+                        <a href="{{route('register')}}"
+                           class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                            Crea una aquí
                         </a>
                     </p>
                 </div>
