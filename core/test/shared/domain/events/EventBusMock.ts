@@ -1,12 +1,17 @@
-import {expect, vi} from "vitest";
-import {EventBus} from "../../../../src/shared/domain/events/EventBus";
-import {DomainEvent} from "../../../../src/shared/domain/events/DomainEvent";
+import { expect, vi } from "vitest";
+import { EventBus } from "../../../../src/shared/domain/events/EventBus";
+import { DomainEvent } from "../../../../src/shared/domain/events/DomainEvent";
+import { DomainEventSubscriber } from "../../../../src/shared/domain/events/DomainEventSubscriber";
 
 export class EventBusMock implements EventBus {
     private publishSpy = vi.fn();
 
     async publish(...events: DomainEvent[]) {
         this.publishSpy(events);
+    }
+
+    addSubscribers(...subscribers: DomainEventSubscriber<DomainEvent>[]): void {
+        throw new Error("Method not implemented.");
     }
 
     assertLastPublishedEventIs(expectedEvent: DomainEvent) {

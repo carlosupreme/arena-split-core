@@ -8,6 +8,7 @@ const commandBus = new InMemorySyncCommandBus();
 server.use(express.json());
 
 server.get('/', async (_req: Request, res: Response) => {
+    
     const command = new CreateUserCommand(UserId.create().value, 'John Doe');
     await commandBus.dispatch(command);
 
