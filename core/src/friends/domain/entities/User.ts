@@ -1,6 +1,6 @@
-import {Entity} from "../../shared/domain/entities/Entity";
+import {Entity} from "../../../shared/domain/entities/Entity";
 import {UserId} from "./UserId";
-import {UserCreated} from "./UserCreated";
+import {UserCreated} from "../events/UserCreated";
 
 export class User extends Entity<UserId> {
     private name: string;

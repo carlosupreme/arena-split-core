@@ -1,16 +1,15 @@
 import {beforeAll, describe, expect, it} from "vitest";
 import {InMemoryEventBus} from "./InMemoryEventBus";
-import {DomainEventBus} from "../../../../src/shared/domain/events/DomainEventBus";
 import {EntityFakeCreated} from "./EntityFakeCreated";
 import {LogOnEntityFakeCreated} from "../entities/LogOnEntityFakeCreated";
 import {EntityFake} from "../entities/EntityFake";
 
 describe("EventBus", () => {
-    let eventBus: DomainEventBus;
+    let eventBus: InMemoryEventBus;
 
     beforeAll(() => {
         eventBus = new InMemoryEventBus();
-        eventBus.addSubscriber(new LogOnEntityFakeCreated())
+        eventBus.addSubscribers(new LogOnEntityFakeCreated())
     })
 
     it("should listen an event", () => {

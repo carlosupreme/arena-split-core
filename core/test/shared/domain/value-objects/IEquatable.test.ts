@@ -9,6 +9,10 @@ class Name implements IEquatable {
         return other.constructor === this.constructor &&
             other.name === this.name;
     }
+
+    getEqualityComponents(): unknown[] {
+        return [this.name];
+    }
 }
 
 describe("IEquatable", () => {

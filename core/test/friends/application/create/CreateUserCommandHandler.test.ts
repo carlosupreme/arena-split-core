@@ -1,11 +1,11 @@
-import {describe, it, beforeEach} from "vitest";
-import {CreateUserCommandHandler} from "../../../../src/friends/application/create/CreateUserCommandHandler";
+import {beforeEach, describe, it} from "vitest";
 import {UserRepositoryMock} from "../mocks/UserRepositoryMock";
 import {EventBusMock} from "../../../shared/domain/events/EventBusMock";
+import {CreateUserCommandHandler} from "../../../../src/friends/application/create/CreateUserCommandHandler";
 import {CreateUserCommand} from "../../../../src/friends/application/create/CreateUserCommand";
-import {User} from "../../../../src/friends/domain/User";
-import {UserId} from "../../../../src/friends/domain/UserId";
-import {UserCreated} from "../../../../src/friends/domain/UserCreated";
+import {UserId} from "../../../../src/friends/domain/entities/UserId";
+import {User} from "../../../../src/friends/domain/entities/User";
+import {UserCreated} from "../../../../src/friends/domain/events/UserCreated";
 
 let repository: UserRepositoryMock;
 let eventBus: EventBusMock;

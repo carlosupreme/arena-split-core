@@ -1,4 +1,4 @@
-import {DomainEvent} from "../../shared/domain/events/DomainEvent";
+import {DomainEvent} from "../../../shared/domain/events/DomainEvent";
 
 type UserCreatedAttributes = {
     readonly name: string

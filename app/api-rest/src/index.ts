@@ -1,13 +1,8 @@
-import {app} from "./server";
+import {Application} from "./app";
 
-export class Application {
-    private constructor() {
-    }
-
-    static start() {
-        console.log('Application initialized');
-        app.listen(3000, () => {
-            console.log('Server running at http://localhost:3000');
-        });
-    }
+try {
+    Application.start();
+} catch (e) {
+    console.log(e);
+    process.exit(1);
 }

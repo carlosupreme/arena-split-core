@@ -1,10 +1,11 @@
-import {CommandHandler} from "../../../shared/application/commands/CommandHandler";
 import {CreateUserCommand} from "./CreateUserCommand";
-import {UserRepository} from "../../domain/UserRepository";
+import {CommandHandler} from "../../../shared/application/commands/CommandHandler";
+import {UserRepository} from "../../domain/repositories/UserRepository";
 import {EventBus} from "../../../shared/domain/events/EventBus";
-import {User} from "../../domain/User";
+import {User} from "../../domain/entities/User";
+import {UserId} from "../../domain/entities/UserId";
 import {Command} from "../../../shared/application/commands/Command";
-import {UserId} from "../../domain/UserId";
+
 
 export class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
     private readonly userRepository: UserRepository;

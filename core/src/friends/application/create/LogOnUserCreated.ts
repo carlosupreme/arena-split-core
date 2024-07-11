@@ -1,4 +1,4 @@
-import {UserCreated} from "../../domain/UserCreated";
+import {UserCreated} from "../../domain/events/UserCreated";
 import {DomainEventSubscriber} from "../../../shared/domain/events/DomainEventSubscriber";
 import {DomainEventClass} from "../../../shared/domain/events/DomainEvent";
 

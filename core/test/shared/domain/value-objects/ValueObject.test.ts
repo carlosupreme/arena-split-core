@@ -30,14 +30,14 @@ describe("Value object", () => {
         expect(name1.equals(name2)).toBe(false);
     });
 
-    it("should compare two distinct objects from different Classes", () => {
+    it("should compare two distinct objects from different ValueObject Classes", () => {
         class FullNameFake extends ValueObject {
             constructor(public firstName: string, public lastName: string) {
                 super();
             }
 
             getEqualityComponents(): unknown[] {
-                // just inverting the order we know that is a different class
+                // just inverting the order we know that is a different object
                 return [
                     this.lastName,
                     this.firstName
@@ -46,7 +46,7 @@ describe("Value object", () => {
         }
 
         const name1 = new FullName('carlos', 'sosa');
-        const name2 = new FullNameFake('carlos', 'other');
+        const name2 = new FullNameFake('carlos', 'sosa');
 
         expect(name1.equals(name2)).toBe(false);
     });

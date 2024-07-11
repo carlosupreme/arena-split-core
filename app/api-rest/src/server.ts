@@ -1,14 +1,21 @@
 import express, {Request, Response} from 'express';
+import {InMemorySyncCommandBus} from "./InMemorySyncCommandBus";
+import {CreateUserCommand, UserId} from "arena-split-core";
 
-const app = express();
+const server = express();
+const commandBus = new InMemorySyncCommandBus();
 
-app.use(express.json());
+server.use(express.json());
 
-app.get('/', (_req: Request, res: Response) => {
+server.get('/', async (_req: Request, res: Response) => {
+    const command = new CreateUserCommand(UserId.create().value, 'John Doe');
+    await commandBus.dispatch(command);
+
     res.json({
         message: 'Hello World!',
-        status: 'ok'
+        status: 'ok',
+        commandCount: commandBus.getCount()
     });
-});
+})
 
-export {app}
+export {server};

@@ -1,10 +1,10 @@
 import {beforeAll, describe, expect, it} from "vitest";
-import {Application} from "../src";
+import {Application} from "../src/app";
 
 const API_URL = 'http://localhost:3000/';
 const BEFORE_ALL_TIMEOUT = 30000; // 30 sec
 
-describe('Request endpoint', () => {
+describe('Request / endpoint', () => {
     let response: Response;
     let body: Array<{ [key: string]: unknown }>;
 
@@ -20,5 +20,16 @@ describe('Request endpoint', () => {
 
     it('Should have content-type', () => {
         expect(response.headers.get('Content-Type')).to.have.string('application/json');
+    });
+
+    it('should have a hello world message', () =>{
+        expect(body).to.contain({
+            message: 'Hello World!',
+            status: 'ok'
+        });
+    })
+
+    it('should have a command count', () => {
+        expect(body.commandCount).toBe(1);
     });
 });

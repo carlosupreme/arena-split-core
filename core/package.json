@@ -1,12 +1,33 @@
 {
   "name": "arena-split-core",
-  "version": "1.0.0",
-  "main": "build/index.js",
-  "directories": {
-    "test": "tests"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosupreme/arena-split.git",
+    "directory": "core"
+  },
+  "version": "0.0.2-SNAPSHOT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "sourcemap": true,
+    "minify": true,
+    "splitting": true,
+    "clean": true
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "test": "vitest run"
   },
   "keywords": [],
@@ -16,6 +37,7 @@
   "devDependencies": {
     "@types/node": "^20.14.9",
     "@types/uuid": "^10.0.0",
+    "tsup": "^8.1.0",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   },
