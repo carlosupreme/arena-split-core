@@ -1,36 +1,40 @@
-import {beforeEach, describe, it} from "vitest";
+import {beforeAll, describe, expect, it} from "vitest";
 import {UserRepositoryMock} from "../mocks/UserRepositoryMock";
-import {EventBusMock} from "../../../shared/domain/events/EventBusMock";
 import {CreateUserCommandHandler} from "../../../../src/friends/application/create/CreateUserCommandHandler";
 import {CreateUserCommand} from "../../../../src/friends/application/create/CreateUserCommand";
-import {UserId} from "../../../../src/friends/domain/entities/UserId";
-import {User} from "../../../../src/friends/domain/entities/User";
-import {UserCreated} from "../../../../src/friends/domain/events/UserCreated";
+import {InMemoryEventBus} from "../../../shared/domain/events/InMemoryEventBus";
+import {Uuid} from "../../../../src";
 
 let repository: UserRepositoryMock;
-let eventBus: EventBusMock;
+let eventBus: InMemoryEventBus;
 let handler: CreateUserCommandHandler;
 
-beforeEach(() => {
+beforeAll(() => {
     repository = new UserRepositoryMock();
-    eventBus = new EventBusMock();
+    eventBus = new InMemoryEventBus();
     handler = new CreateUserCommandHandler(repository, eventBus);
 });
 
-describe('RegisterUserCommandHandler', () => {
+describe('CreateUserCommandHandler', async () => {
 
     it('should create a valid user', async () => {
-        const userId = UserId.create();
-        const command = new CreateUserCommand(userId.value, "Carlos");
-        const user = new User(userId, command.name);
-        const domainEvent = new UserCreated({
-            name: user.getName(),
-            entityId: user.id.value
+        const userIdGeneratedPreviously = Uuid.random().value;
+        const command = new CreateUserCommand({
+            id: userIdGeneratedPreviously,
+            fullName: 'Carlos',
+            email: 'carlos@carlos.com',
+            username: 'usernameCarlos'
         });
 
         await handler.handle(command);
 
-        repository.assertSaveHaveBeenCalledWith(user);
-        eventBus.assertLastPublishedEventIs(domainEvent);
+        const user = repository.getLastUserCreated();
+
+        expect(user).not.toBeNull();
+        expect(user.id.value).toBe(userIdGeneratedPreviously);
+        expect(user.getFullName().value).toBe('Carlos');
+        expect(user.getEmail().value).toBe('carlos@carlos.com');
+        expect(user.getUsername()).toBe('usernameCarlos');
     });
+
 });

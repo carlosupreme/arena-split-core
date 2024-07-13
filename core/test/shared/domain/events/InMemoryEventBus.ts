@@ -4,50 +4,26 @@ import {DomainEventSubscriber} from "../../../../src/shared/domain/events/Domain
 import {EventBus} from "../../../../src/shared/domain/events/EventBus";
 import {HasDomainEvents} from "../../../../src";
 
-class MyEmitter extends EventEmitter {
-
-}
-
-export class InMemoryEventBus implements EventBus {
-
-    private emitter: MyEmitter = new MyEmitter();
-
+export class InMemoryEventBus extends EventEmitter implements EventBus {
     async publish(...events: DomainEvent[]): Promise<void> {
         events.forEach(event => {
-            console.log(`Event about to publish: ${event.eventName} at ${event.occurredOn}`)
-            this.emitter.emit(event.eventName, event);
-            event.markAsPublished();
+            this.emit(event.eventName, event);
         })
     }
 
-    addSubscriber(subscriber: DomainEventSubscriber<DomainEvent>): void {
-        subscriber.subscribedTo().forEach(event => {
-            console.log('adding subscriber', event.EVENT_NAME)
-            this.emitter.on(event.EVENT_NAME, subscriber.on.bind(subscriber));
-        });
-    }
-
-    async publishEvents(entities: HasDomainEvents[]): Promise<void> {
-        const domainEvents = this.getEventsFromEntities(entities);
-
-        for (const event of domainEvents) {
-            if (event.isPublished) continue;
-
-            await this.publish(event);
-            event.markAsPublished();
+    async publishEventsFromEntities(...entities: HasDomainEvents[]): Promise<void> {
+        for (const entity of entities) {
+            await this.publish(...entity.pullDomainEvents());
         }
-    }
-
-    private getEventsFromEntities(entities: HasDomainEvents[]) {
-        const domainEvents: DomainEvent[] = [];
-
-        for (const entity of entities)
-            domainEvents.push(...entity.pullDomainEvents());
-
-        return domainEvents;
     }
 
     addSubscribers(...subscribers: DomainEventSubscriber<DomainEvent>[]): void {
         subscribers.forEach(subscriber => this.addSubscriber(subscriber));
+    }
+
+    addSubscriber(subscriber: DomainEventSubscriber<DomainEvent>): void {
+        subscriber.subscribedTo().forEach(event => {
+            this.on(event.EVENT_NAME, subscriber.on.bind(subscriber));
+        });
     }
 }
