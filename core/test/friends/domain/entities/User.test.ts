@@ -6,7 +6,7 @@ import {InvalidFullNameError} from "../../../../src/friends/domain/errors/Invali
 const userPrimitive = {
     id: Uuid.random().value,
     username: "username",
-    fullName: "fullName",
+    fullName: "full Name",
     email: "email@valid.com"
 };
 
@@ -51,4 +51,8 @@ describe("User", () => {
         }).toThrowError(InvalidFullNameError);
 
     });
+
+
+
+
 })

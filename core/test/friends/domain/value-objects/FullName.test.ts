@@ -23,5 +23,25 @@ describe('Full Name ', () => {
         expect(fullName.equals(fullName2)).toBe(true);
     });
 
-    // aqui irian mas tests sobre que no acepte caracteres especiales, que no pase de 50, etc
+    it('should throw an error with fullName with more than 50 chars', () => {
+        const invalidFullName = "123456789012345678901234567890123456789012345678901";
+
+        expect(
+            () => new FullName(invalidFullName)
+        ).toThrowError(InvalidFullNameError);
+    });
+
+    it('should throw an error with fullName with chars that are not letters or spaces', () => {
+        const invalidFullName = "josha1 ^@";
+        expect(() => new FullName(invalidFullName)).toThrowError(InvalidFullNameError);
+    });
+
+    it('should acept spaces ', () => {
+        const expectedFullName = "Tellez Hernandez";
+        const fullName = new FullName(expectedFullName);
+        expect(fullName.value).toBe(expectedFullName);
+
+    })
+
+
 });

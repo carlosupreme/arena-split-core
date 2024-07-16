@@ -4,6 +4,7 @@ import {UserCreated} from "../events/UserCreated";
 import {Email} from "../value-objects/Email";
 import {FullName} from "../value-objects/FullName";
 
+
 export class User extends Entity<UserId> {
     constructor(
         id: UserId,
@@ -15,6 +16,7 @@ export class User extends Entity<UserId> {
     }
 
     static create(userPrimitive: UserPrimitive): User {
+
         const {id, fullName, email, username} = userPrimitive;
         const user = new User(new UserId(id), new FullName(fullName), new Email(email), username);
 
