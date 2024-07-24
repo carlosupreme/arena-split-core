@@ -1,0 +1,9 @@
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "fullName": "John Doe",
+  "email": "carlos@gmail.com",
+  "username": "carlos",
+  "id": "550e8400-e29b-41d4-a716-446655440000"
+}
