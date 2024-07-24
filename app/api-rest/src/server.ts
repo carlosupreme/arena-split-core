@@ -1,18 +1,18 @@
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import errorHandler from 'errorhandler';
-import express, {Request, Response} from 'express';
+import express, {NextFunction, Request, Response, Express} from 'express';
 import Router from 'express-promise-router';
 import helmet from 'helmet';
-import * as http from 'http';
+import {Server as HttpServer} from 'http';
 import httpStatus from 'http-status';
 import {registerRoutes} from './routes';
 import cors from 'cors';
 
 export class Server {
-    private express: express.Express;
+    private express: Express;
     readonly port: string;
-    httpServer?: http.Server;
+    httpServer?: HttpServer;
 
     constructor(port: string) {
         this.port = port;
@@ -30,7 +30,7 @@ export class Server {
         this.express.use(router);
         registerRoutes(router);
 
-        router.use((err: Error, _req: Request, res: Response, _next: Function) => {
+        router.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             console.error(err);
             res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
         });

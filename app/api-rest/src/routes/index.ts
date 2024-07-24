@@ -1,9 +1,10 @@
 import {Router} from 'express';
 import {globSync} from 'fast-glob';
+import path from "node:path";
 
 export function registerRoutes(router: Router) {
-    const routes = globSync(__dirname + '/**/*.route.*');
-    routes.map(route => register(route, router));
+    const routes = globSync(path.resolve(__dirname, '*.route.ts'));
+    routes.forEach(route => register(route, router));
 }
 
 function register(routePath: string, app: Router) {

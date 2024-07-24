@@ -20,4 +20,4 @@ export type DomainEventClass = {
     EVENT_NAME: string;
 };
 
-export type DomainEventAttributes = any
+export type DomainEventAttributes = object
