@@ -2,10 +2,9 @@
   "name": "arena-split-core",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carlosupreme/arena-split.git",
-    "directory": "core"
+    "url": "git+https://github.com/carlosupreme/arena-split-core.git"
   },
-  "version": "0.0.8-SNAPSHOT",
+  "version": "0.0.9-SNAPSHOT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -32,7 +31,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "@types/node": "^20.14.9",
