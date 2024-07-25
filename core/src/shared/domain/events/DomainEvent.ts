@@ -1,30 +1,16 @@
-import {Uuid} from "../values-objects/Uuid";
-
 export abstract class DomainEvent {
     static EVENT_NAME: string;
-    static fromPrimitives: (params: {
-        entityId: string;
-        eventId: string;
-        occurredOn: Date;
-        attributes: DomainEventAttributes;
-    }) => DomainEvent;
 
+    readonly eventName: string;
     readonly entityId: string;
     readonly eventId: string;
     readonly occurredOn: Date;
-    readonly eventName: string;
-    public isPublished: boolean = false;
 
-    protected constructor(params: { eventName: string; entityId: string; eventId?: string; occurredOn?: Date }) {
-        const { entityId, eventName, eventId, occurredOn } = params;
-        this.entityId = entityId;
-        this.eventId = eventId || Uuid.random().value;
-        this.occurredOn = occurredOn || new Date(Date.now());
-        this.eventName = eventName;
-    }
-
-    public markAsPublished(): void {
-        this.isPublished = true;
+    protected constructor(data: { eventId: string, eventName: string, entityId: string, occurredOn: Date }) {
+        this.eventName = data.eventName;
+        this.entityId = data.entityId;
+        this.eventId = data.eventId;
+        this.occurredOn = data.occurredOn;
     }
 
     abstract toPrimitives(): DomainEventAttributes;
@@ -32,12 +18,6 @@ export abstract class DomainEvent {
 
 export type DomainEventClass = {
     EVENT_NAME: string;
-    fromPrimitives(params: {
-        entityId: string;
-        eventId: string;
-        occurredOn: Date;
-        attributes: DomainEventAttributes;
-    }): DomainEvent;
 };
 
-type DomainEventAttributes = any;
+export type DomainEventAttributes = object

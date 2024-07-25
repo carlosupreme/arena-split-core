@@ -5,7 +5,7 @@
     "url": "git+https://github.com/carlosupreme/arena-split.git",
     "directory": "core"
   },
-  "version": "0.0.2-SNAPSHOT",
+  "version": "0.0.8-SNAPSHOT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -39,7 +39,7 @@
     "@types/uuid": "^10.0.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.3",
-    "vitest": "^1.6.0"
+    "vitest": "^2.0.2"
   },
   "dependencies": {
     "uuid": "^10.0.0"

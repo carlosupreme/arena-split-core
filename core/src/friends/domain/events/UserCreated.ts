@@ -1,36 +1,35 @@
 import {DomainEvent} from "../../../shared/domain/events/DomainEvent";
-
-type UserCreatedAttributes = {
-    readonly name: string
-};
+import {UserPrimitive} from "../entities/User";
+import {Uuid} from "../../../shared/domain/values-objects/Uuid";
 
 export class UserCreated extends DomainEvent {
     static readonly EVENT_NAME = 'user.created';
-    readonly name: string;
+    readonly user: UserPrimitive;
 
-    constructor(data: { name: string, entityId: string; eventId?: string; occurredOn?: Date }) {
-        const {name, entityId, eventId, occurredOn} = data;
+    constructor(data: { user: UserPrimitive, entityId: string; eventId: string; occurredOn: Date }) {
+        const {user, entityId, eventId, occurredOn} = data;
         super({eventName: UserCreated.EVENT_NAME, entityId, eventId, occurredOn});
-        this.name = name;
+        this.user = user;
+    }
+
+    static create(user: UserPrimitive): UserCreated {
+        const eventId = Uuid.random().value;
+        const occurredOn = new Date(Date.now());
+
+        return new UserCreated({
+            user,
+            entityId: user.id,
+            eventId,
+            occurredOn
+        });
     }
 
     toPrimitives(): UserCreatedAttributes {
-        const {name} = this;
-        return {name}
-    }
-
-    static fromPrimitives(params: {
-        entityId: string;
-        attributes: UserCreatedAttributes;
-        eventId: string;
-        occurredOn: Date;
-    }): DomainEvent {
-        const {entityId, attributes, occurredOn, eventId} = params;
-        return new UserCreated({
-            entityId,
-            eventId,
-            occurredOn,
-            name: attributes.name
-        });
+        const {user} = this;
+        return {user}
     }
 }
+
+type UserCreatedAttributes = {
+    readonly user: UserPrimitive
+};

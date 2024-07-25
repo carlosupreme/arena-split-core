@@ -14,6 +14,20 @@ class FullName extends ValueObject {
     }
 }
 
+class FullNameFake extends ValueObject {
+    constructor(public firstName: string, public lastName: string) {
+        super();
+    }
+
+    getEqualityComponents(): unknown[] {
+        // notice the inversion of the properties
+        return [
+            this.lastName,
+            this.firstName
+        ];
+    }
+}
+
 describe("Value object", () => {
     it("should be compare two equal objects", () => {
         const name1 = new FullName('carlos', 'sosa');
@@ -31,19 +45,7 @@ describe("Value object", () => {
     });
 
     it("should compare two distinct objects from different ValueObject Classes", () => {
-        class FullNameFake extends ValueObject {
-            constructor(public firstName: string, public lastName: string) {
-                super();
-            }
 
-            getEqualityComponents(): unknown[] {
-                // just inverting the order we know that is a different object
-                return [
-                    this.lastName,
-                    this.firstName
-                ];
-            }
-        }
 
         const name1 = new FullName('carlos', 'sosa');
         const name2 = new FullNameFake('carlos', 'sosa');

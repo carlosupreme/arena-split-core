@@ -1,33 +1,23 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": [
-      "ES2017",
-      "DOM"
-    ],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "module": "commonjs",
-    "rootDir": "./src/",
-    "moduleResolution": "Node10",
-    "outDir": "./build",
-    "baseUrl": "./src",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "target": "es6",
     "noImplicitAny": true,
-    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "rootDir": ".",
+    "strict": true,
+    "noEmit": false,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "removeComments": true
+    "outDir": "./dist"
   },
   "include": [
-    "src/**/*"
+    "src/**/**.ts",
+    "tests/**/**.ts"
   ],
   "exclude": [
-    "tests/**/*"
+    "node_modules",
   ]
 }

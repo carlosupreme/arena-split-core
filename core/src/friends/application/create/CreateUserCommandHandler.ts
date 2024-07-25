@@ -3,7 +3,6 @@ import {CommandHandler} from "../../../shared/application/commands/CommandHandle
 import {UserRepository} from "../../domain/repositories/UserRepository";
 import {EventBus} from "../../../shared/domain/events/EventBus";
 import {User} from "../../domain/entities/User";
-import {UserId} from "../../domain/entities/UserId";
 import {Command} from "../../../shared/application/commands/Command";
 
 
@@ -17,7 +16,7 @@ export class CreateUserCommandHandler implements CommandHandler<CreateUserComman
     }
 
     async handle(command: CreateUserCommand): Promise<void> {
-        const user = User.create(new UserId(command.id), command.name);
+        const user = User.create(command.toPrimitives());
 
         await this.userRepository.add(user);
 
