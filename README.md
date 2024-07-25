@@ -1,183 +1,138 @@
-# Arena Split
+# Arena Split Core
 
 ## Typescript application following Domain Driven Design principles
 
 ### Development
 
-To start the project you need to have `Node js` installed in your machine
-This comes with `npm` which is the package manager for `Node js`
+To start the project you need to have the following tools installed:
 
-#### Installation
+- Node.js v20
+- NPM v10
+- WebStorm or any other IDE that supports Typescript
+- Git
+
+### Installation of the repository
 
 1. Clone the repo
 
     ```bash
-    git clone git@github.com:carlosupreme/arena-split.git
+    git clone git@github.com:carlosupreme/arena-split-core.git
     ```
 
-2. Navigate to the `arena-split` folder
+2. Navigate to the `arena-split-core` folder
 
     ```bash
-    cd arena-split
+    cd arena-split-core
     ```
+3. Inmediately after cloning the repository you need to move to the `develop` branch
 
-This app is not a monorepo, so you need to navigate to the `core` folder to work with the core 
+    ```bash
+    git checkout develop
+    ```
+4. And create your own branch
 
-And inside `app` folder there will be the various delivery mechanisms for the application each folder inside app should be an independent node application
+    ```bash
+    git checkout -b my-new-feature
+    ```   
 
-#### Developing in the Core
-
-When you are developing in the core application you need to move to the `core` folder
-
-```bash
-cd core
-```
-
-1. Install the dependencies
+5. Install the dependencies
     ```bash
     npm install
     ```
 
-2. Run the tests
+6. Run the tests
     ```bash
-    npm test
+    npm run test
     ```
 
-3. Build the application
+7. Build the application to ensure everything is working fine
     ```bash
     npm run build
     ```
-   
-4. Link the application (if you want to use your changes in a delivery mechanism folder)
-    ```bash
-    npm link
-    ```
-   
-Now you can develop using Test Driven Development. First write the test and then write the code to make the test pass
 
-When you're done and all the tests are passing you should build the application again (step 3).
+### Developing in the Core
 
-### Delivery mechanisms
+Once you have the application running you can start developing in the core. The core is the main application that will be
+used by other applications like the `api` or the `web` application.
 
-#### Developing in the API
+When you are developing in the core application you need to follow these steps
 
-When you are developing in the API application you need to move to the `app/api-rest` folder
-
-1. Install the dependencies
-    ```bash
-    npm install
-    ```
-   
-2. Link the core application (if you want to use your changes made in core)
-    ```bash
-    npm link arena-split-core
-    ```
-
-3. Run the tests
-    ```bash
-    npm test
-    ```
-   
-4. Run the development application
-    ```bash
-    npm run dev
-    ```
-   
-Now you can develop using Test Driven Development. First write the test and then write the code to make the test pass
-
-The links between the core and the API are made using `npm link` so you need to following these steps to develop in the API using your changes in the Core
-
-
-If you made changes in the `core` application, and you want to use them in the `API` you need to build the `core` application and then link it again in the `API`
-
-For example:
-
-1. Navigate to the `core` folder
-    ```bash
-    cd core
-    ```
-2. Made some changes in your code editor (with Tests of course)
-3. Ensure the test are passing and build the core application
-    ```bash
-    npm test
-    npm run build
-    ```
-4. Now move to the `API` folder
-    ```bash
-    cd ../app/api-rest
-    ```
-5. Link the core application again
-   ```bash
-   npm link arena-split-core
-   ```
-6. And _voila_, now you can use the changes in the `core` application into the `API` application
+Do `Test Driven Development` please, write the test first and then write the code to make the test pass
 
 ### Deployment
 
-To deploy this we have 2 scenarios:
+Suppose that you made a new feature (with tests).
 
-### Deploy the `core` application
+You can deploy the core application to `npm` and then other developers that are using the core will have your
+changes.
 
-Suppose that you only made a core feature (with tests) and you are not responsible for implementing it in the api or whatever. You can deploy the core application to `npm` and then other developers using the core will have your changes.
-
-Just run the following command in the `core`
+Just run the following commands:
 
 Obviously the tests should be passing before deploying, so ensure that
+
 ```bash
 npm run test 
 ```
 
-Then run the following command to build the application 
+Then run the following command to build the application
 
 ```bash
 npm run build
 ```
 
-After that change the `package.json` version to a new version (if you made a new feature you should increment the minor version)
+The successful output should look like this:
+
+```bash
+> arena-split-core@0.0.9-SNAPSHOT build
+> tsup
+
+CLI Building entry: src/index.ts
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.1.0
+CLI Using tsup config: /home/carlos/programacion/arena-split/core/package.json
+CLI Target: es2020
+CLI Cleaning output folder
+CJS Build start
+ESM Build start
+ESM dist/index.mjs     4.07 KB
+ESM dist/index.mjs.map 16.80 KB
+ESM ⚡️ Build success in 132ms
+CJS dist/index.js     4.32 KB
+CJS dist/index.js.map 16.45 KB
+CJS ⚡️ Build success in 145ms
+DTS Build start
+DTS ⚡️ Build success in 1442ms
+DTS dist/index.d.ts  5.38 KB
+DTS dist/index.d.mts 5.38 KB
+```
+
+After that, change the `package.json` version to a new version, following our `versioning guide`.
 
 ```json
+// package.json before
 {
-  "version": "1.0.1"
+  "version": "1.1.0"
+}
+```
+```json
+// package.json after
+{
+  "version": "1.2.0"
 }
 ```
 
 And then publish it to `npm`
+
 ```bash
 npm publish --tag latest
 ```
 
 If everything goes well commit your branch and push it to the remote repository
-```bash
-git add . &&  git commit 'new feature' && git push origin my-new-feature
-```
-
-Then open a pull request to the `develop` branch and wait for the approval
-
-### Retrieving the core application new version
-
-If someone publish a new version of the core, a new feature or some bug fix, and if you dont want to pull changes from core and then link the repos
-You can check if any version is new by running the following command
 
 ```bash
-npm outdated
+git add . &&  git commit -m 'new feature' && git push origin my-new-feature
 ```
 
-If there is a new version you can update the core application by running the following command
+Finally open a pull request to the `develop` branch and wait for the approval
 
-```bash
-npm update arena-split-core
-```
-
-And then you can use the new version of the core application without building it locally
-
-### Deploy a full feature
-
-Suppose that you made a full feature that involves changes in the `core` and in the `API` application.
-
-First do the `Deploy the core application` steps except the pull request.
-
-Also, ensure the tests are passing in the api application.
-
-If you made a full feature merge your changes into `releases` branch and wait for the approval
-   
-   
+## Thank you for contributing to the core application 🎉🤗
