@@ -19,7 +19,7 @@ describe("User", () => {
         expect(user.id.value).toBe(userPrimitive.id);
         expect(user.getEmail().value).toBe(userPrimitive.email);
         expect(user.getFullName().value).toBe(userPrimitive.fullName);
-        expect(user.getUsername()).toBe(userPrimitive.username);
+        expect(user.getUsername().value).toBe(userPrimitive.username);
     });
 
     it('should create a user with a UserCreated domain event', () => {

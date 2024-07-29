@@ -34,7 +34,7 @@ describe('CreateUserCommandHandler', async () => {
         expect(user.id.value).toBe(userIdGeneratedPreviously);
         expect(user.getFullName().value).toBe('Carlos');
         expect(user.getEmail().value).toBe('carlos@carlos.com');
-        expect(user.getUsername()).toBe('usernameCarlos');
+        expect(user.getUsername().value).toBe('usernameCarlos');
     });
 
 });

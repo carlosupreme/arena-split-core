@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git+https://github.com/carlosupreme/arena-split-core.git"
   },
-  "version": "0.0.12-SNAPSHOT",
+  "version": "0.0.13-SNAPSHOT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

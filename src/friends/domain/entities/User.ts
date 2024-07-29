@@ -3,6 +3,8 @@ import {UserId} from "./UserId";
 import {UserCreated} from "../events/UserCreated";
 import {Email} from "../value-objects/Email";
 import {FullName} from "../value-objects/FullName";
+import {UserName} from "../value-objects/UserName";
+
 
 
 export class User extends Entity<UserId> {
@@ -10,7 +12,7 @@ export class User extends Entity<UserId> {
         id: UserId,
         private fullName: FullName,
         private email: Email,
-        private username: string
+        private username: UserName
     ) {
         super(id);
     }
@@ -18,9 +20,14 @@ export class User extends Entity<UserId> {
     static create(userPrimitive: UserPrimitive): User {
 
         const {id, fullName, email, username} = userPrimitive;
-        const user = new User(new UserId(id), new FullName(fullName), new Email(email), username);
+
+
+        const user = new User(new UserId(id), new FullName(fullName), new Email(email), new UserName(username));
 
         user.addDomainEvent(UserCreated.create(user.toPrimitives()));
+
+
+
 
         return user;
     }
@@ -33,7 +40,7 @@ export class User extends Entity<UserId> {
         return this.email;
     }
 
-    getUsername(): string {
+    getUsername(): UserName{
         return this.username;
     }
 
@@ -42,7 +49,7 @@ export class User extends Entity<UserId> {
             id: this.id.value,
             fullName: this.fullName.value,
             email: this.email.value,
-            username: this.username
+            username: this.username.value
         }
     }
 }
