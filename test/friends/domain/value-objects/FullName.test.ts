@@ -36,12 +36,10 @@ describe('Full Name ', () => {
         expect(() => new FullName(invalidFullName)).toThrowError(InvalidFullNameError);
     });
 
-    it('should acept spaces ', () => {
+    it('should accept spaces ', () => {
         const expectedFullName = "Tellez Hernandez";
         const fullName = new FullName(expectedFullName);
         expect(fullName.value).toBe(expectedFullName);
-
     })
-
 
 });

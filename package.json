@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git+https://github.com/carlosupreme/arena-split-core.git"
   },
-  "version": "0.0.13-SNAPSHOT",
+  "version": "0.0.14-SNAPSHOT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -12,9 +12,17 @@
     "dist"
   ],
   "tsup": {
-    "entry": ["src/index.ts"],
-    "format": ["cjs", "esm"]
-   },
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "sourcemap": true,
+    "clean": true,
+    "dts": true
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run"

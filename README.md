@@ -74,6 +74,29 @@ Obviously the tests should be passing before deploying, so ensure that
 npm run test 
 ```
 
+If you added new classes or interfaces that should be exported, ensure that the corresponding `index.ts` file is updated with the new exports
+
+This index files has the following format: 
+
+Just the layer application and domain. 
+
+Starts with the bounded context name and `-` and then the layer name (domain or application).
+
+Let's say that you added a new Domain value object called `UserName` to the `friends` bounded context, you should update the `friends-domain.ts` file
+
+
+```typescript 
+// friends-domain.ts before
+export * from "./value-objects/Email";
+export * from "./value-objects/FullName";
+```
+```typescript
+// friends-domain.ts after
+export * from "./value-objects/Email";
+export * from "./value-objects/FullName";
+export * from "./value-objects/UserName"; // added
+```
+
 Then run the following command to build the application
 
 ```bash
@@ -83,39 +106,39 @@ npm run build
 The successful output should look like this:
 
 ```bash
-> arena-split-core@0.0.9-SNAPSHOT build
+> arena-split-core@0.0.14-SNAPSHOT build
 > tsup
 
 CLI Building entry: src/index.ts
 CLI Using tsconfig: tsconfig.json
 CLI tsup v8.1.0
-CLI Using tsup config: /home/carlos/programacion/arena-split/core/package.json
+CLI Using tsup config: /home/carlos/programacion/arena-aplit/core/package.json
 CLI Target: es2020
 CLI Cleaning output folder
 CJS Build start
 ESM Build start
-ESM dist/index.mjs     4.07 KB
-ESM dist/index.mjs.map 16.80 KB
-ESM ⚡️ Build success in 132ms
-CJS dist/index.js     4.32 KB
-CJS dist/index.js.map 16.45 KB
-CJS ⚡️ Build success in 145ms
+ESM dist/index.mjs     8.00 KB
+ESM dist/index.mjs.map 17.60 KB
+ESM ⚡️ Build success in 44ms
+CJS dist/index.js     9.77 KB
+CJS dist/index.js.map 17.83 KB
+CJS ⚡️ Build success in 45ms
 DTS Build start
-DTS ⚡️ Build success in 1442ms
-DTS dist/index.d.ts  5.38 KB
-DTS dist/index.d.mts 5.38 KB
+DTS ⚡️ Build success in 1475ms
+DTS dist/index.d.ts  5.64 KB
+DTS dist/index.d.mts 5.64 KB
 ```
 
 After that, change the `package.json` version to a new version, following our `versioning guide`.
 
+`package.json before`
 ```json
-// package.json before
 {
   "version": "1.1.0"
 }
 ```
+`package.json after`
 ```json
-// package.json after
 {
   "version": "1.2.0"
 }

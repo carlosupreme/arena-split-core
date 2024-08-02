@@ -5,8 +5,6 @@ import {Email} from "../value-objects/Email";
 import {FullName} from "../value-objects/FullName";
 import {UserName} from "../value-objects/UserName";
 
-
-
 export class User extends Entity<UserId> {
     constructor(
         id: UserId,
@@ -18,17 +16,10 @@ export class User extends Entity<UserId> {
     }
 
     static create(userPrimitive: UserPrimitive): User {
-
         const {id, fullName, email, username} = userPrimitive;
-
-
         const user = new User(new UserId(id), new FullName(fullName), new Email(email), new UserName(username));
 
         user.addDomainEvent(UserCreated.create(user.toPrimitives()));
-
-
-
-
         return user;
     }
 
@@ -40,7 +31,7 @@ export class User extends Entity<UserId> {
         return this.email;
     }
 
-    getUsername(): UserName{
+    getUsername(): UserName {
         return this.username;
     }
 

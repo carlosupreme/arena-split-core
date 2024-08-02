@@ -1,3 +1,3 @@
-export class InvalidUserNameError extends Error{
+export class InvalidUserNameError extends Error {
 
 }
