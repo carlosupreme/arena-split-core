@@ -3,7 +3,7 @@ import {UserRepositoryMock} from "../mocks/UserRepositoryMock";
 import {CreateUserCommandHandler} from "../../../../src/friends/application/create/CreateUserCommandHandler";
 import {CreateUserCommand} from "../../../../src/friends/application/create/CreateUserCommand";
 import {InMemoryEventBus} from "../../../shared/domain/events/InMemoryEventBus";
-import {Uuid} from "../../../../src";
+import {UUID} from "../../../../src";
 
 let repository: UserRepositoryMock;
 let eventBus: InMemoryEventBus;
@@ -18,7 +18,7 @@ beforeAll(() => {
 describe('CreateUserCommandHandler', async () => {
 
     it('should create a valid user', async () => {
-        const userIdGeneratedPreviously = Uuid.random().value;
+        const userIdGeneratedPreviously = UUID.random().value;
         const command = new CreateUserCommand({
             id: userIdGeneratedPreviously,
             fullName: 'Carlos',

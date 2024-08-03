@@ -1,6 +1,6 @@
 import {DomainEvent} from "../../../shared/domain/events/DomainEvent";
 import {UserPrimitive} from "../entities/User";
-import {Uuid} from "../../../shared/domain/values-objects/Uuid";
+import {UUID} from "../../../shared/domain/values-objects/UUID";
 
 export class UserCreated extends DomainEvent {
     static readonly EVENT_NAME = 'user.created';
@@ -13,7 +13,7 @@ export class UserCreated extends DomainEvent {
     }
 
     static create(user: UserPrimitive): UserCreated {
-        const eventId = Uuid.random().value;
+        const eventId = UUID.random().value;
         const occurredOn = new Date(Date.now());
 
         return new UserCreated({

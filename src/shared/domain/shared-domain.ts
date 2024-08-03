@@ -7,4 +7,6 @@ export * from "./events/DomainEventSubscriber";
 
 export * from "./values-objects/ValueObject";
 export * from "./values-objects/IEquatable";
-export * from "./values-objects/Uuid";
+export * from "./values-objects/UUID";
+
+export * from "./errors/InvalidUUIDError";

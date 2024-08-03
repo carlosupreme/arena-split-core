@@ -1,10 +1,10 @@
 import {describe, expect, it} from "vitest";
-import {User, Uuid} from "../../../../src";
+import {User, UUID} from "../../../../src";
 import {InvalidEmailAddressError} from "../../../../src/friends/domain/errors/InvalidEmailAddressError";
 import {InvalidFullNameError} from "../../../../src/friends/domain/errors/InvalidFullNameError";
 
 const userPrimitive = {
-    id: Uuid.random().value,
+    id: UUID.random().value,
     username: "username",
     fullName: "full Name",
     email: "email@valid.com"
@@ -42,7 +42,7 @@ describe("User", () => {
     it('should validate full name with min 3 chars', () => {
         const invalidFullName = "a#";
 
-        const id = Uuid.random().value;
+        const id = UUID.random().value;
         const email = "email@valido.com";
         const username = "username";
 
