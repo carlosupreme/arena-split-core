@@ -2,19 +2,16 @@ import {InvalidEmailAddressError} from "../errors/InvalidEmailAddressError";
 import {ValueObject} from "../../../shared/domain/values-objects/ValueObject";
 
 export class Email extends ValueObject {
-    readonly value: string
-
-    constructor(value: string) {
+    constructor(readonly value: string) {
         super();
-        this.value = value;
-        this.ensureIsValidEmail(value);
+        this.ensureIsValidEmail();
     }
 
-    ensureIsValidEmail(email: string) {
+    ensureIsValidEmail() {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-        if (!emailRegex.test(email)) {
-            throw new InvalidEmailAddressError(email);
+        if (!emailRegex.test(this.value)) {
+            throw new InvalidEmailAddressError(this.value);
         }
     }
 

@@ -4,29 +4,20 @@ import {ValueObject} from "../../../shared/domain/values-objects/ValueObject";
 export class FullName extends ValueObject {
     constructor(readonly value: string) {
         super();
-        this.ensureMinLength(value);
-        this.ensureMaxLength(value);
-        this.ensureNomenclature(value);
+        this.value = this.sanitizeFullName(value).trim();
+        this.ensureIsValid();
     }
 
-    private ensureMinLength(value: string) {
-        if (value.length < 3) {
-            throw new InvalidFullNameError("The full name must have at least 3 characters");
+    private ensureIsValid() {
+        const fullNameRegex = /^[A-ZÁÉÍÓÚáéíóúñÑa-z ]{3,100}$/;
+
+        if (!fullNameRegex.test(this.value)) {
+            throw new InvalidFullNameError(this.value);
         }
     }
 
-    private ensureMaxLength(value: string) {
-        if (value.length > 50) {
-            throw new InvalidFullNameError("The full name must have max 50 characters");
-        }
-    }
-
-    private ensureNomenclature(value: string) {
-        const fullNameRegex = /[^a-zA-Z\s]/g;
-        if (fullNameRegex.test(value)) {
-            throw new InvalidFullNameError("The full name should only have letters and numbers");
-        }
-
+    private sanitizeFullName(name: string): string {
+        return name.replace(/\s{2,}/g, ' ');
     }
 
     getEqualityComponents(): unknown[] {
