@@ -11,4 +11,8 @@ export class UserRepositoryMock implements UserRepository {
     getLastUserCreated(): User {
         return this.users[this.users.length - 1];
     }
+
+    async findByEmail(_email: string): Promise<User | null> {
+        return null;
+    }
 }
