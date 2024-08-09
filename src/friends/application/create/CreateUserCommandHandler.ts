@@ -16,7 +16,7 @@ export class CreateUserCommandHandler implements CommandHandler<CreateUserComman
     }
 
     async handle(command: CreateUserCommand): Promise<void> {
-        const user = User.create(command.toPrimitives());
+        const user = User.create(command.toPrimitives());   
 
         await this.userRepository.add(user);
 

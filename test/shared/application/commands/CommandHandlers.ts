@@ -12,7 +12,6 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
             this.set(commandHandler.subscribedTo(), commandHandler);
         });
     }
-
     public get(command: Command): CommandHandler<Command> {
         const commandHandler = super.get(command.constructor);
 
@@ -22,4 +21,5 @@ export class CommandHandlers extends Map<Command, CommandHandler<Command>> {
 
         return commandHandler;
     }
+
 }

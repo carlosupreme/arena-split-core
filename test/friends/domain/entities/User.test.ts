@@ -25,7 +25,6 @@ describe("User", () => {
     it('should create a user with a UserCreated domain event', () => {
         const user = User.create(userPrimitive);
         const userDomainEvents = user.pullDomainEvents();
-
         expect(userDomainEvents.length).toBe(1);
         expect(userDomainEvents[0].eventName).toBe('user.created');
         expect(userDomainEvents[0].entityId).toBe(userPrimitive.id);

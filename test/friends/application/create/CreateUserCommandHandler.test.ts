@@ -14,7 +14,6 @@ beforeAll(() => {
     eventBus = new InMemoryEventBus();
     handler = new CreateUserCommandHandler(repository, eventBus);
 });
-
 describe('CreateUserCommandHandler', async () => {
 
     it('should create a valid user', async () => {
@@ -36,5 +35,7 @@ describe('CreateUserCommandHandler', async () => {
         expect(user.getEmail().value).toBe('carlos@carlos.com');
         expect(user.getUsername().value).toBe('usernameCarlos');
     });
+
+
 
 });
