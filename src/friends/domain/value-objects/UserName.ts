@@ -8,7 +8,7 @@ export class UserName extends ValueObject {
     }
 
     private ensureInstagramRegex() {
-        const userNameRegex = /^(?!.*\.\.)(?!.*\.$)\w[\w.]{0,29}$/;
+        const userNameRegex = /^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,29}$/;
 
         if (!userNameRegex.test(this.value)) {
             throw new InvalidUserNameError(this.value);

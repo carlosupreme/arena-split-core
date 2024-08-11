@@ -9,4 +9,5 @@ export * from "./values-objects/ValueObject";
 export * from "./values-objects/IEquatable";
 export * from "./values-objects/UUID";
 
+export * from "./errors/DomainError";
 export * from "./errors/InvalidUUIDError";

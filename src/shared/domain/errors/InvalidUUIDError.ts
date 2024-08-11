@@ -1,6 +1,13 @@
-export class InvalidUUIDError extends Error {
+import {DomainError} from "./DomainError";
+
+export class InvalidUUIDError extends DomainError {
     constructor(uuid: string) {
-        super(`Invalid UUID: ${uuid}`);
-        this.name = this.constructor.name;
+        const title = "Invalid id";
+        const detail = `The id <${uuid}> is invalid`;
+        const solutions = [
+            "Must have a valid format following the UUID v4 standard"
+        ];
+
+        super({title, detail, solutions});
     }
 }

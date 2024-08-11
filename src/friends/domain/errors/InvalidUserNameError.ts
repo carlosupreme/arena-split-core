@@ -1,5 +1,16 @@
-export class InvalidUserNameError extends Error {
+import {DomainError} from "../../../shared/domain/errors/DomainError";
+
+export class InvalidUserNameError extends DomainError {
     constructor(username: string) {
-        super(`The username <${username}> does not match the required pattern: Should only contain alphanumeric characters, underscores, and periods, and must not contain consecutive periods or end with a period.`);
+        const title = "Invalid username";
+        const detail = `The username <${username}> is invalid`;
+        const solutions = [
+            "Should only contain alphanumeric characters, underscores, and periods",
+            "Must not contain consecutive periods",
+            "Must not end with a period",
+            "Maximum length is 30 characters"
+        ];
+
+        super({title, detail, solutions});
     }
 }

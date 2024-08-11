@@ -1,6 +1,5 @@
 import {describe, expect, it} from "vitest";
-import {InvalidUserNameError} from "../../../../src/friends/domain/errors/InvalidUserNameError";
-import {UserName} from "../../../../src/friends/domain/value-objects/UserName";
+import {InvalidUserNameError, UserName} from "../../../../src";
 
 describe("UserName", () => {
     it("Should throw an error with UserName with spaces", () => {
@@ -37,6 +36,19 @@ describe("UserName", () => {
         }).toThrowError(InvalidUserNameError);
     });
 
+    it("Should throw an error with UserName with only one letter", () => {
+        const userName = "a";
+        expect(() => {
+            new UserName(userName);
+        }).toThrowError(InvalidUserNameError);
+    });
+
+    it("Should accept an UserName with a minimum of 3 letters", () => {
+        const expected = "abc";
+        const username = new UserName(expected);
+        expect(username.value).toBe(expected);
+    });
+
     it("Should accept a UserName with maximum allowed length", () => {
         const maxLength = 30;
         const userName = "a".repeat(maxLength);
@@ -50,5 +62,29 @@ describe("UserName", () => {
         expect(() => {
             new UserName(userName);
         }).toThrowError(InvalidUserNameError);
+    });
+
+    it("Should throw an error with invalid UserName and give solutions", () => {
+        const maxLength = 30;
+        const userName = "a".repeat(maxLength + 1);
+
+        const expectedSolutions = [
+            "Should only contain alphanumeric characters, underscores, and periods",
+            "Must not contain consecutive periods",
+            "Must not end with a period",
+            "Maximum length is 30 characters"
+        ];
+
+        try {
+            new UserName(userName);
+        } catch (error) {
+            if (!(error instanceof InvalidUserNameError)) {
+                throw error;
+            }
+
+            expect(error.title).toBe("Invalid username");
+            expect(error.detail).toBe(`The username <${userName}> is invalid`);
+            expect(error.solutions).toEqual(expectedSolutions);
+        }
     });
 });

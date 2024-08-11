@@ -1,8 +1,7 @@
 import {describe, expect, it} from "vitest";
-import {FullName} from "../../../../src/friends/domain/value-objects/FullName";
-import {InvalidFullNameError} from "../../../../src/friends/domain/errors/InvalidFullNameError";
+import { FullName,  InvalidFullNameError} from "../../../../src";
 
-describe('Full Name ', () => {
+describe('Full Name', () => {
     it('should create a valid full name', () => {
         const expectedFullName = 'Valid Full Name';
         const fullName = new FullName(expectedFullName);
@@ -49,4 +48,25 @@ describe('Full Name ', () => {
         const fullName = new FullName("Téllez             Hernández              ");
         expect(fullName.value).toBe(expectedFullName);
     })
+
+    it('should throw an error with a invalid full name and give solutions', () => {
+        const invalidFullName = "a";
+        const expectedSolutions = [
+            "Must be at least 3 characters long",
+            "Must not exceed 100 characters",
+            "Must only contain letters and spaces"
+        ];
+
+        try {
+            new FullName(invalidFullName);
+        } catch (error) {
+            if (!(error instanceof InvalidFullNameError)) {
+                throw error;
+            }
+
+            expect(error.title).toBe("Invalid full name");
+            expect(error.detail).toBe(`The full name <${invalidFullName}> is invalid`);
+            expect(error.solutions).toEqual(expectedSolutions);
+        }
+    });
 });
