@@ -36,6 +36,4 @@ describe('CreateUserCommandHandler', async () => {
         expect(user.getUsername().value).toBe('usernameCarlos');
     });
 
-
-
 });

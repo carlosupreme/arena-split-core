@@ -1,9 +1,8 @@
-import {User} from "../../../../src/friends/domain/entities/User";
-import {UserRepository} from "../../../../src/friends/domain/repositories/UserRepository";
-import {UserId} from "../../../../src";
+import {User, UserId, UserRepository} from "../../../../src";
 
 export class UserRepositoryMock implements UserRepository {
     private readonly users: User[] = [];
+    private user: User | null = null;
 
     async add(user: User): Promise<void> {
         this.users.push(user);
@@ -11,6 +10,10 @@ export class UserRepositoryMock implements UserRepository {
 
     getLastUserCreated(): User {
         return this.users[this.users.length - 1];
+    }
+
+    getLastUserUpdated(): User {
+        return this.user!;
     }
 
     async findByEmail(_email: string): Promise<User | null> {
@@ -21,7 +24,7 @@ export class UserRepositoryMock implements UserRepository {
         return this.users[0];
     }
 
-    async updateFromId(_user: User): Promise<void> {
-        return Promise.resolve(undefined);
+    async updateFromId(user: User): Promise<void> {
+        this.user = user;
     }
 }
