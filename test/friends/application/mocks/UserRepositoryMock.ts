@@ -1,4 +1,4 @@
-import {User, UserId, UserRepository} from "../../../../src";
+import {User, UserRepository} from "../../../../src";
 
 export class UserRepositoryMock implements UserRepository {
     private readonly users: User[] = [];
@@ -20,9 +20,6 @@ export class UserRepositoryMock implements UserRepository {
         return null;
     }
 
-    async findById(_userId: UserId): Promise<User> {
-        return this.users[0];
-    }
 
     async updateFromId(user: User): Promise<void> {
         this.user = user;
