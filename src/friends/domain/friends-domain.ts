@@ -12,3 +12,6 @@ export * from "./value-objects/UserName";
 export * from "./errors/InvalidEmailAddressError";
 export * from "./errors/InvalidFullNameError";
 export * from "./errors/InvalidUserNameError";
+export * from "./errors/EmailAlreadyTakenError";
+export * from "./errors/UsernameAlreadyTakenError";
+export * from "./errors/UserIdAlreadyTakenError";
